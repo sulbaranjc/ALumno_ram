@@ -30,6 +30,7 @@ public class ConsoleMenu implements CommandLineRunner {
                 case 3 -> crearAlumno();
                 case 4 -> actualizarAlumno();
                 case 5 -> eliminarAlumno();
+                case 6 -> resetearDatos();
                 case 0 -> System.out.println("Saliendo... Hasta luego.");
                 default -> System.out.println("Opcion invalida. Intente nuevamente.");
             }
@@ -43,6 +44,7 @@ public class ConsoleMenu implements CommandLineRunner {
         System.out.println("3. Crear alumno");
         System.out.println("4. Actualizar alumno");
         System.out.println("5. Eliminar alumno");
+        System.out.println("6. Resetear datos (cargar datos de ejemplo)");
         System.out.println("0. Salir");
     }
 
@@ -106,6 +108,17 @@ public class ConsoleMenu implements CommandLineRunner {
         System.out.println(eliminado
                 ? "Alumno eliminado exitosamente."
                 : "No se encontro un alumno con ID " + id);
+    }
+
+    private void resetearDatos() {
+        String confirmacion = leerTexto("Esto borrara todos los alumnos actuales y cargara los datos de ejemplo. ¿Continuar? (s/n): ");
+        if (!confirmacion.equalsIgnoreCase("s")) {
+            System.out.println("Operacion cancelada.");
+            return;
+        }
+        alumnoService.resetearDatos();
+        System.out.println("Datos reseteados. Se cargaron los alumnos de ejemplo:");
+        listarAlumnos();
     }
 
     private String leerTexto(String mensaje) {

@@ -47,4 +47,10 @@ public class AlumnoRepositoryImpl implements AlumnoRepository {
     public boolean existsById(Long id) {
         return alumnos.stream().anyMatch(alumno -> alumno.getId().equals(id));
     }
+
+    @Override
+    public void deleteAll() {
+        alumnos.clear();
+        secuenciaId.set(1);
+    }
 }

@@ -18,4 +18,6 @@ public interface AlumnoService {
                                        double nota1, double nota2, double nota3);
 
     boolean eliminarAlumno(Long id);
+
+    void resetearDatos();
 }

@@ -16,4 +16,6 @@ public interface AlumnoRepository {
     boolean deleteById(Long id);
 
     boolean existsById(Long id);
+
+    void deleteAll();
 }

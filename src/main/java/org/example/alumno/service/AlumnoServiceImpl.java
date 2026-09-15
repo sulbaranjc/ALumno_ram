@@ -1,5 +1,6 @@
 package org.example.alumno.service;
 
+import jakarta.annotation.PostConstruct;
 import org.example.alumno.model.Alumno;
 import org.example.alumno.repository.AlumnoRepository;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,11 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     public AlumnoServiceImpl(AlumnoRepository alumnoRepository) {
         this.alumnoRepository = alumnoRepository;
+    }
+
+    @PostConstruct
+    private void inicializarDatosSemilla() {
+        cargarDatosSemilla();
     }
 
     @Override
@@ -50,5 +56,19 @@ public class AlumnoServiceImpl implements AlumnoService {
     @Override
     public boolean eliminarAlumno(Long id) {
         return alumnoRepository.deleteById(id);
+    }
+
+    @Override
+    public void resetearDatos() {
+        alumnoRepository.deleteAll();
+        cargarDatosSemilla();
+    }
+
+    private void cargarDatosSemilla() {
+        crearAlumno("Ana", "Gomez", "ana.gomez@example.com", 18, 16, 17);
+        crearAlumno("Luis", "Martinez", "luis.martinez@example.com", 14, 15, 13);
+        crearAlumno("Maria", "Rodriguez", "maria.rodriguez@example.com", 20, 19, 20);
+        crearAlumno("Carlos", "Fernandez", "carlos.fernandez@example.com", 12, 11, 10);
+        crearAlumno("Sofia", "Lopez", "sofia.lopez@example.com", 16, 18, 15);
     }
 }
