@@ -43,7 +43,6 @@ public class AlumnoServiceImpl implements AlumnoService {
             alumnoExistente.setNota1(nota1);
             alumnoExistente.setNota2(nota2);
             alumnoExistente.setNota3(nota3);
-            alumnoExistente.setNotaTotal(alumnoExistente.calcularNotaTotal());
             return alumnoRepository.save(alumnoExistente);
         });
     }

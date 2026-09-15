@@ -23,11 +23,11 @@ public class Alumno {
         this.nota1 = nota1;
         this.nota2 = nota2;
         this.nota3 = nota3;
-        this.notaTotal = calcularNotaTotal();
+        recalcularNotaTotal();
     }
 
-    public double calcularNotaTotal() {
-        return (nota1 + nota2 + nota3) / 3.0;
+    private void recalcularNotaTotal() {
+        this.notaTotal = (nota1 + nota2 + nota3) / 3.0;
     }
 
     public Long getId() {
@@ -68,6 +68,7 @@ public class Alumno {
 
     public void setNota1(double nota1) {
         this.nota1 = nota1;
+        recalcularNotaTotal();
     }
 
     public double getNota2() {
@@ -76,6 +77,7 @@ public class Alumno {
 
     public void setNota2(double nota2) {
         this.nota2 = nota2;
+        recalcularNotaTotal();
     }
 
     public double getNota3() {
@@ -84,14 +86,11 @@ public class Alumno {
 
     public void setNota3(double nota3) {
         this.nota3 = nota3;
+        recalcularNotaTotal();
     }
 
     public double getNotaTotal() {
         return notaTotal;
-    }
-
-    public void setNotaTotal(double notaTotal) {
-        this.notaTotal = notaTotal;
     }
 
     @Override
