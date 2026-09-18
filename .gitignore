@@ -37,3 +37,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Datos generados en tiempo de ejecucion ###
+# Fichero binario donde AlumnoRepositoryBinarioImpl serializa los alumnos.
+data/
