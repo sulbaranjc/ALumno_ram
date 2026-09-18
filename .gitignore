@@ -37,3 +37,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Datos generados en tiempo de ejecucion ###
+# Fichero de alumnos serializados y contador de ids de AlumnoRepositorySerializadoImpl.
+data/

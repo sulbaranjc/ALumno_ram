@@ -38,7 +38,7 @@ public class ConsoleMenu implements CommandLineRunner {
     }
 
     private void mostrarMenu() {
-        System.out.println("\n===== CRUD ALUMNOS (memoria RAM) =====");
+        System.out.println("\n===== CRUD ALUMNOS (fichero de objetos serializados) =====");
         System.out.println("1. Listar alumnos");
         System.out.println("2. Buscar alumno por ID");
         System.out.println("3. Crear alumno");
