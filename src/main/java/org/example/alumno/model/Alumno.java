@@ -1,6 +1,37 @@
 package org.example.alumno.model;
 
-public class Alumno {
+import java.io.Serializable;
+
+/**
+ * Entidad Alumno.
+ *
+ * Implementa {@link Serializable} porque la persistencia de esta rama
+ * (vease AlumnoRepositorySerializadoImpl) usa SERIALIZACION DE OBJETOS:
+ * Java convierte el objeto entero en una secuencia de bytes de forma
+ * automatica con {@link java.io.ObjectOutputStream}, y lo reconstruye
+ * despues con {@link java.io.ObjectInputStream}. Serializable es una
+ * interfaz "marcadora" (no declara metodos): solo le dice a la JVM
+ * "autorizo a que esta clase se convierta en bytes".
+ *
+ * Con esta tecnica cada Alumno ocupa un numero de bytes DISTINTO (segun
+ * la longitud de su nombre, apellido y correo), asi que no hay forma de
+ * calcular de antemano en que byte del fichero empieza cada uno. Por eso
+ * las busquedas se hacen leyendo el fichero de forma SECUENCIAL, alumno
+ * a alumno, en vez de saltar directamente a una posicion calculada (esa
+ * es la tecnica de la rama hermana pers_dis_bin, que usa RandomAccessFile
+ * con registros de longitud fija).
+ */
+public class Alumno implements Serializable {
+
+    /**
+     * Identificador de version de la clase para la serializacion.
+     * Se fija a mano (en vez de dejar que el IDE lo autogenere) para
+     * controlar nosotros cuando cambia el "contrato binario" de la clase:
+     * si en el futuro anadimos o quitamos atributos y esta version no
+     * coincide con la del fichero .dat ya guardado, Java avisara con un
+     * InvalidClassException en vez de fallar de forma silenciosa.
+     */
+    private static final long serialVersionUID = 1L;
 
     private Long id;
     private String nombre;

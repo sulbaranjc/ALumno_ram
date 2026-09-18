@@ -8,6 +8,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Nota pedagogica: casi todo este servicio es IDENTICO a la version de la
+ * rama pers_disc (persistencia en ArrayList). No ha hecho falta tocarlo al
+ * cambiar la tecnologia de persistencia porque depende de la interfaz
+ * {@link AlumnoRepository}, no de su implementacion concreta (Spring
+ * inyecta aqui, sin que lo sepamos, AlumnoRepositorySerializadoImpl en
+ * lugar del antiguo AlumnoRepositoryImpl). La UNICA adaptacion necesaria
+ * esta en {@link #inicializarDatosSemilla()}, justo porque ahora los
+ * datos SI persisten entre ejecuciones.
+ */
 @Service
 public class AlumnoServiceImpl implements AlumnoService {
 
@@ -17,9 +27,19 @@ public class AlumnoServiceImpl implements AlumnoService {
         this.alumnoRepository = alumnoRepository;
     }
 
+    /**
+     * Con la persistencia en ArrayList (rama pers_disc) esta comprobacion
+     * no hacia falta: al vivir solo en RAM, cada arranque empezaba
+     * siempre vacio. Ahora que el repositorio persiste en disco, los
+     * datos SI sobreviven entre ejecuciones, asi que hay que cargar la
+     * semilla solo la primera vez (repositorio vacio); en caso contrario
+     * duplicariamos los alumnos de ejemplo en cada reinicio.
+     */
     @PostConstruct
     private void inicializarDatosSemilla() {
-        cargarDatosSemilla();
+        if (alumnoRepository.findAll().isEmpty()) {
+            cargarDatosSemilla();
+        }
     }
 
     @Override
